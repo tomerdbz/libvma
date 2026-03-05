@@ -139,7 +139,7 @@ typedef struct {
 	uint32_t    n_tx_dummy;
 } socket_counters_t;
 
-typedef struct {
+typedef struct socket_stats_t {
 	int         fd;
 	uint32_t                     inode;
 	uint32_t                     tcp_state;   // enum tcp_state
@@ -184,7 +184,7 @@ typedef struct {
 	};
 } socket_stats_t;
 
-typedef struct {
+typedef struct socket_instance_block_t {
 	bool            b_enabled;
 	socket_stats_t  skt_stats;
 

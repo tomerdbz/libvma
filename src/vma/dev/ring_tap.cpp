@@ -495,8 +495,6 @@ void ring_tap::mem_buf_desc_return_single_to_owner_tx(mem_buf_desc_t* p_mem_buf_
 {
 	auto_unlocker lock(m_lock_ring_tx);
 
-	int count = 0;
-
 	if (likely(p_mem_buf_desc)) {
 		//potential race, ref is protected here by ring_tx lock, and in dst_entry_tcp & sockinfo_tcp by tcp lock
 		if (likely(p_mem_buf_desc->lwip_pbuf.pbuf.ref))
@@ -508,7 +506,6 @@ void ring_tap::mem_buf_desc_return_single_to_owner_tx(mem_buf_desc_t* p_mem_buf_
 			p_mem_buf_desc->p_next_desc = NULL;
 			free_lwip_pbuf(&p_mem_buf_desc->lwip_pbuf);
 			m_tx_pool.push_back(p_mem_buf_desc);
-			count++;
 		}
 	}
 
@@ -547,6 +544,8 @@ int ring_tap::mem_buf_tx_release(mem_buf_desc_t* buff_list, bool b_accounting, b
 		count++;
 		buff_list = next;
 	}
+	// to suppress warning in case ring_logfunc is compiled out
+	NOT_IN_USE(freed);
 	ring_logfunc("buf_list: %p count: %d freed: %d\n", buff_list, count, freed);
 
 	return_to_global_pool();

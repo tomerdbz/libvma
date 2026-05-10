@@ -833,6 +833,9 @@ int ring_simple::put_tx_buffers(mem_buf_desc_t* buff_list)
 		count++;
 		buff_list = next;
 	}
+
+	// to suppress warning in case ring_logfunc is compiled out
+	NOT_IN_USE(freed);
 	ring_logfunc("buf_list: %p count: %d freed: %d\n", buff_list, count, freed);
 
 	return_to_global_pool();

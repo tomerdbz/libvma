@@ -317,6 +317,7 @@ int priv_ibv_modify_qp_ratelimit(struct ibv_qp *qp, struct vma_rate_limit_t &rat
 		return -2;
 	} ENDIF_VERBS_FAILURE;
 	BULLSEYE_EXCLUDE_BLOCK_END
+	NOT_IN_USE(attr_mask); /* vma_ibv_modify_qp_rate_limit may drop mask under DEFINED_IBV_QP_SUPPORT_BURST */
 #ifdef DEFINED_IBV_QP_SUPPORT_BURST
 	vlog_printf(VLOG_DEBUG, "qp was set to rate limit %d, burst size %d, packet size %d\n",
 			rate_limit.rate, rate_limit.max_burst_sz, rate_limit.typical_pkt_sz);

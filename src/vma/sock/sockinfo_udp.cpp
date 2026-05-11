@@ -1498,6 +1498,8 @@ int sockinfo_udp::rx_request_notification(uint64_t poll_sn)
 	}
 	m_rx_ring_map_lock.unlock();
 
+    // to suppress warning in case si_udp_logfunc is compiled out
+	NOT_IN_USE(ring_armed_count);
 	si_udp_logfunc("armed or busy %d ring(s) and %d ring are pending processing", ring_armed_count, ring_ready_count);
 	return ring_ready_count;
 }

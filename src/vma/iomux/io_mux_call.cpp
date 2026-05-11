@@ -368,6 +368,7 @@ void io_mux_call::polling_loops()
 	}
 
 	__if_dbg("2nd scenario exit (loop %d, elapsed %d)", poll_counter, m_elapsed.tv_usec);
+	NOT_IN_USE(poll_counter); /* to suppress warning in case VMA_MAX_DEFINED_LOG_LEVEL */
 }
 
 void io_mux_call::blocking_loops()
